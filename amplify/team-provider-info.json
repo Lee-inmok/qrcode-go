@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-qrcodego-dev-8be11-authRole",
+      "UnauthRoleArn": "arn:aws:iam::339713048453:role/amplify-qrcodego-dev-8be11-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::339713048453:role/amplify-qrcodego-dev-8be11-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-qrcodego-dev-8be11-deployment",
+      "UnauthRoleName": "amplify-qrcodego-dev-8be11-unauthRole",
+      "StackName": "amplify-qrcodego-dev-8be11",
+      "StackId": "arn:aws:cloudformation:us-east-1:339713048453:stack/amplify-qrcodego-dev-8be11/525bb1c0-3361-11ef-a4f9-0ec47f958301",
+      "AmplifyAppId": "d3nez46ag4qiix"
+    },
+    "categories": {
+      "auth": {
+        "qrcodego523f4e6e": {}
+      }
+    }
+  }
+}
