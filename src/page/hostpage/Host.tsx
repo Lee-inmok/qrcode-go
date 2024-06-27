@@ -13,14 +13,14 @@ const Host: React.FC = () => {
   const [days, setDays] = useState("");
   const [qrdata, setQrdata] = useState<QRData>({
     getqrdata: "",
-    qrclient: "http://qrcode-go.s3-website-us-east-1.amazonaws.com/#/client",
+    // qrclient: "http://qrcode-go.s3-website-us-east-1.amazonaws.com/#/client",
+    qrclient: "http://localhost:3000/#/client",
   });
 
   const currentTimer = () => {
     const date = new Date();
     const month = String(date.getMonth() + 1);
     const day = String(date.getDate());
-    const Week = String(date.getDay());
     const fullYear = String(date.getFullYear());
     const hours = String(date.getHours()).padStart(2, "0");
     const minutes = String(date.getMinutes()).padStart(2, "0");
@@ -32,12 +32,9 @@ const Host: React.FC = () => {
 
   useEffect(() => {
     const intervalId = setInterval(currentTimer, 1000);
+    qrcodedataget();
     return () => clearInterval(intervalId);
   }, []);
-
-  useEffect(() => {
-    qrcodedataget();
-  }, [days]);
 
   useEffect(() => {
     if (timer.endsWith("00")) {
@@ -74,7 +71,8 @@ const Host: React.FC = () => {
 
   const generateQrCodeValue = () => {
     const { qrclient, getqrdata } = qrdata;
-    return `${qrclient}?qrname=${encodeURIComponent(getqrdata)}`;
+    const getqrdataString = JSON.stringify(getqrdata);
+    return `${qrclient}?getqrdata=${getqrdataString}`;
   };
 
   return (
