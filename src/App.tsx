@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 import Host from "./page/hostpage/Host";
 import Client from "./page/clientpage/Client";
-import LoginPage from "./LoginPage"; // 로그인 페이지 컴포넌트 생성 필요
+import LoginPage from "./LoginPage";
 import { Amplify } from "aws-amplify";
 import { Authenticator } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";

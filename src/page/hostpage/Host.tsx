@@ -1,21 +1,18 @@
 import QRCode from "qrcode.react";
 import { useEffect, useState } from "react";
 import { AllBox, MiddleBox, ShotBox } from "./styled";
-import { v4 as uuidv4 } from "uuid";
+import axios from "axios";
 
 interface QRData {
-  qrname: string;
-  qrtime: string;
+  getqrdata: string;
   qrclient: string;
 }
 
 const Host: React.FC = () => {
-  const id = uuidv4();
   const [timer, setTimer] = useState("00:00:00");
   const [days, setDays] = useState("");
   const [qrdata, setQrdata] = useState<QRData>({
-    qrname: "",
-    qrtime: "",
+    getqrdata: "",
     qrclient: "http://qrcode-go.s3-website-us-east-1.amazonaws.com/#/client",
   });
 
@@ -39,40 +36,45 @@ const Host: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    const date = new Date();
-    const hours = String(date.getHours()).padStart(2, "0");
-    const minutes = String(date.getMinutes()).padStart(2, "0");
-    setTimer(`${hours}:${minutes}:00`);
-    setQrdata((prev) => ({
-      ...prev,
-      qrtime: timer,
-      qrname: id,
-    }));
+    qrcodedataget();
   }, [days]);
 
   useEffect(() => {
     if (timer.endsWith("00")) {
-      setQrdata((prev) => ({
-        ...prev,
-        qrtime: timer,
-        qrname: id,
-      }));
+      qrcodedataget();
     }
   }, [timer]);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setQrdata((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+  useEffect(() => {
+    console.log(qrdata);
+  }, [qrdata]);
+
+  const qrcodedataget = async () => {
+    const date = new Date();
+    const hours = String(date.getHours()).padStart(2, "0");
+    const minutes = String(date.getMinutes()).padStart(2, "0");
+    setTimer(`${hours}${minutes}00`);
+    try {
+      const response = await axios.get(
+        "https://h6mgailhtf.execute-api.us-east-1.amazonaws.com/qrcord-get",
+        {
+          headers: {
+            hhmmss: timer,
+          },
+        }
+      );
+      setQrdata((prev) => ({
+        ...prev,
+        getqrdata: response.data.items,
+      }));
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const generateQrCodeValue = () => {
-    const { qrclient, qrname, qrtime } = qrdata;
-    return `${qrclient}?qrname=${encodeURIComponent(
-      qrname
-    )}&qrtime=${encodeURIComponent(qrtime)}`;
+    const { qrclient, getqrdata } = qrdata;
+    return `${qrclient}?qrname=${encodeURIComponent(getqrdata)}`;
   };
 
   return (
@@ -86,15 +88,6 @@ const Host: React.FC = () => {
           </ShotBox>
         </MiddleBox>
         <br />
-        <div>
-          first value:
-          <input
-            name="qrname"
-            value={qrdata.qrname}
-            type="text"
-            onChange={handleInputChange}
-          />
-        </div>
       </AllBox>
     </>
   );
