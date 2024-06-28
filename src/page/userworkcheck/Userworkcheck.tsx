@@ -29,10 +29,6 @@ const Userworkcheck: React.FC = () => {
   const [startDate, setStartDate] = useState<Date | null>(new Date());
 
   useEffect(() => {
-    console.log(data);
-  }, [data]);
-
-  useEffect(() => {
     const getWorkerData = async () => {
       if (userAttributes?.name) {
         try {
@@ -97,9 +93,9 @@ const Userworkcheck: React.FC = () => {
         {filteredData.map((data) => (
           <div>
             <div key={data.UU_ID}>{data.worker_name}</div>
-            <div key={data.UU_ID}>{data.yymmdd}</div>
-            <div key={data.UU_ID}>{data.hhmmss}</div>
-            <div key={data.UU_ID}>{data.state}</div>
+            <div>{data.yymmdd}</div>
+            <div>{data.hhmmss}</div>
+            <div>{data.state}</div>
           </div>
         ))}
       </div>

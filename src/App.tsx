@@ -35,7 +35,14 @@ const App: React.FC = () => {
             }
           />
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/check" element={<Check/>}/>
+          <Route
+            path="/check"
+            element={
+              <ProtectedRoute>
+                <Check />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </Router>
     </Authenticator.Provider>
