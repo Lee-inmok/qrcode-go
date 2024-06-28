@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import Host from "./page/hostpage/Host";
 import Client from "./page/clientpage/Client";
+import Check from "./page/userworkcheck/Userworkcheck";
 import LoginPage from "./LoginPage";
 import { Amplify } from "aws-amplify";
 import { Authenticator } from "@aws-amplify/ui-react";
@@ -34,6 +35,7 @@ const App: React.FC = () => {
             }
           />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/check" element={<Check/>}/>
         </Routes>
       </Router>
     </Authenticator.Provider>

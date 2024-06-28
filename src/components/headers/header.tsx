@@ -12,6 +12,7 @@ const Header: React.FC = () => {
       <nav>
         <Button onClick={() => navigate("/host")}>qr cord</Button>
         <Button onClick={() => navigate("/client")}>client</Button>
+        <Button onClick={() => navigate("/Check")}>Check</Button>
         <br></br>
         <span>{user?.username}</span>
         <Button onClick={signOut}>Sign Out</Button>
