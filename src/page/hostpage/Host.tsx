@@ -48,6 +48,10 @@ const Host: React.FC = () => {
 
   const qrcodedataget = async () => {
     const date = new Date();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    const fullYear = String(date.getFullYear()).slice(-2);
+    const days = fullYear + month + day;
     const hours = String(date.getHours()).padStart(2, "0");
     const minutes = String(date.getMinutes()).padStart(2, "0");
     setTimer(`${hours}${minutes}00`);
@@ -57,6 +61,7 @@ const Host: React.FC = () => {
         {
           headers: {
             hhmmss: timer,
+            yymmdd: days,
           },
         }
       );

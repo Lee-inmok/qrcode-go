@@ -46,51 +46,61 @@ const Client: React.FC = () => {
   }, [userAttributes]);
 
   const workstart = async () => {
+    if (!userAttributes || !data) {
+      return;
+    }
     try {
       const response = await axios.post(
-        `https://jlfxm6r10g.execute-api.us-east-1.amazonaws.com/dev/worker?QRUUID=018f4bea-5271-4dbb-a1e7-1a148c921543&name=LEE INMOK&hhmmss=145300&yymmdd=240627&state=1`
+        `https://wmz5myrws3.execute-api.us-east-1.amazonaws.com/get-user-data?PostID=${data[0].UU_ID}&name=${userAttributes.name}&hhmmss=${data[0].hhmmss}&yymmdd=${data[0].yymmdd}&state=1`
       );
-
       console.log("Post request successful", response.data);
     } catch (error) {
       console.error("Error while making POST request:", error);
     }
   };
-  const workoff = () => {
-    console.log("退勤");
+  const workoff = async () => {
+    if (!userAttributes || !data) {
+      return;
+    }
+    try {
+      const response = await axios.post(
+        `https://wmz5myrws3.execute-api.us-east-1.amazonaws.com/get-user-data?PostID=${data[0].UU_ID}&name=${userAttributes.name}&hhmmss=${data[0].hhmmss}&yymmdd=${data[0].yymmdd}&state=2`
+      );
+      console.log("Post request successful", response.data);
+    } catch (error) {
+      console.error("Error while making POST request:", error);
+    }
   };
-  const goout = () => {
-    console.log("外出");
+  const goout = async () => {
+    if (!userAttributes || !data) {
+      return;
+    }
+    try {
+      const response = await axios.post(
+        `https://wmz5myrws3.execute-api.us-east-1.amazonaws.com/get-user-data?PostID=${data[0].UU_ID}&name=${userAttributes.name}&hhmmss=${data[0].hhmmss}&yymmdd=${data[0].yymmdd}&state=3`
+      );
+      console.log("Post request successful", response.data);
+    } catch (error) {
+      console.error("Error while making POST request:", error);
+    }
   };
-  const returnwork = () => {
-    console.log("復帰");
+  const returnwork = async () => {
+    if (!userAttributes || !data) {
+      return;
+    }
+    try {
+      const response = await axios.post(
+        `https://wmz5myrws3.execute-api.us-east-1.amazonaws.com/get-user-data?PostID=${data[0].UU_ID}&name=${userAttributes.name}&hhmmss=${data[0].hhmmss}&yymmdd=${data[0].yymmdd}&state=4`
+      );
+      console.log("Post request successful", response.data);
+    } catch (error) {
+      console.error("Error while making POST request:", error);
+    }
   };
 
   return (
     <div>
       <h1>QR Data</h1>
-      {data.map(
-        (getdata: { UU_ID: string; hhmmss: string; yymmdd: string }) => (
-          <div>
-            {getdata.UU_ID}
-            <br></br>
-            {getdata.hhmmss}
-            <br></br>
-            {getdata.yymmdd}
-          </div>
-        )
-      )}
-      {userAttributes ? (
-        <div>
-          <p>Birthdate: {userAttributes.birthdate}</p>
-          <p>Email: {userAttributes.email}</p>
-          <p>Name: {userAttributes.name}</p>
-          <p>Nickname: {userAttributes.nickname}</p>
-          <p>Sub: {userAttributes.sub}</p>
-        </div>
-      ) : (
-        <p>Loading user attributes...</p>
-      )}
       <Button onClick={workstart}>出勤</Button>
       <Button onClick={workoff}>退勤</Button>
       <Button onClick={goout}>外出</Button>
