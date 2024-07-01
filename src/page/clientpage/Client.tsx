@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { fetchUserAttributes } from "aws-amplify/auth";
-import { Button } from "@aws-amplify/ui-react";
 import axios from "axios";
+import { AllBox, MiddleBox, ShotBox } from "./styled";
+import { Button } from "@mui/material";
 
 interface userdata {
   birthdate: string | undefined;
@@ -36,14 +37,6 @@ const Client: React.FC = () => {
     };
     fetchAttributes();
   }, []);
-
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
-
-  useEffect(() => {
-    console.log(userAttributes);
-  }, [userAttributes]);
 
   const workstart = async () => {
     if (!userAttributes || !data) {
@@ -99,13 +92,33 @@ const Client: React.FC = () => {
   };
 
   return (
-    <div>
+    <AllBox>
       <h1>QR Data</h1>
-      <Button onClick={workstart}>出勤</Button>
-      <Button onClick={workoff}>退勤</Button>
-      <Button onClick={goout}>外出</Button>
-      <Button onClick={returnwork}>復帰</Button>
-    </div>
+      <MiddleBox>
+        <ShotBox>
+          <Button variant="contained" onClick={workstart}>
+            出勤
+          </Button>
+        </ShotBox>
+        <ShotBox>
+          <Button variant="contained" onClick={workoff}>
+            退勤
+          </Button>
+        </ShotBox>
+      </MiddleBox>
+      <MiddleBox>
+        <ShotBox>
+          <Button variant="contained" onClick={goout}>
+            外出
+          </Button>
+        </ShotBox>
+        <ShotBox>
+          <Button variant="contained" onClick={returnwork}>
+            復帰
+          </Button>
+        </ShotBox>
+      </MiddleBox>
+    </AllBox>
   );
 };
 

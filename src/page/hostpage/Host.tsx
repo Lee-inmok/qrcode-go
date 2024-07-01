@@ -13,8 +13,7 @@ const Host: React.FC = () => {
   const [days, setDays] = useState("");
   const [qrdata, setQrdata] = useState<QRData>({
     getqrdata: "",
-    // qrclient: "http://qrcode-go.s3-website-us-east-1.amazonaws.com/#/client",
-    qrclient: "http://localhost:3000/#/client",
+    qrclient: "http://qrcode-go.s3-website-us-east-1.amazonaws.com/#/client",
   });
 
   const currentTimer = () => {
